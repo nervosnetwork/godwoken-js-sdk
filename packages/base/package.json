@@ -1,5 +1,5 @@
 {
-  "name": "@gdowoken-js-sdk/base",
+  "name": "@godwoken-js-sdk/base",
   "version": "0.0.1",
   "description": "Base package for godwoken js sdk",
   "license": "MIT",
@@ -29,5 +29,9 @@
     "require": [
       "ts-node/register"
     ]
+  },
+  "dependencies": {
+    "@ckb-lumos/base": "^0.16.0",
+    "ckb-js-toolkit": "^0.10.2"
   }
 }
