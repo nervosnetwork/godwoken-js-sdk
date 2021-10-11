@@ -1,7 +1,7 @@
 #!/bin/bash
 
 download(){
-  curl -L https://raw.githubusercontent.com/nervosnetwork/godwoken/v0.6.2-rc5/crates/types/schemas/$1.mol -o tmp/$1.mol
+  curl -L https://raw.githubusercontent.com/nervosnetwork/godwoken/v0.6.6-rc1/crates/types/schemas/$1.mol -o tmp/$1.mol
 }
 
 generate(){
@@ -15,6 +15,14 @@ generate(){
 rename_godwoken(){
   for i in ./schemas/godwoken.* ; do mv "$i" "${i/godwoken/index}" ; done
 }
+
+# require moleculec 0.7.2
+MOLC=moleculec
+MOLC_VERSION=0.7.2
+if [ ! -x "$(command -v "${MOLC}")" ] \
+    || [ "$(${MOLC} --version | awk '{ print $2 }' | tr -d ' ')" != "${MOLC_VERSION}" ]; then \
+  echo "Require moleculec v0.7.2, please run 'cargo install moleculec --locked --version 0.7.2' to install."; \
+fi
 
 # download molecylec-es, must be v0.3.1
 DIR=molecule-es
