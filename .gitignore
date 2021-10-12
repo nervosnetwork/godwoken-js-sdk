@@ -105,4 +105,4 @@ dist
 
 /docs/
 
-packages/base/lib
+packages/*/lib

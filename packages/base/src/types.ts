@@ -82,9 +82,9 @@ export interface DepositRequest {
 }
 
 export interface CustodianLockArgs {
-  deposit_lock_args: Hash;
   deposit_block_hash: Hash;
   deposit_block_number: HexNumber;
+  deposit_lock_args: DepositLockArgs;
 }
 
 export interface UnoinType {

@@ -108,9 +108,9 @@ export function NormalizeCustodianLockArgs(
   { debugPath = "custondian_lock_args" } = {}
 ) {
   return normalizeObject(debugPath, args, {
-    deposit_lock_args: normalizeRawData(32),
     deposit_block_hash: normalizeRawData(32),
     deposit_block_number: normalizeHexNumber(8),
+    deposit_lock_args: toNormalize(NormalizeDepositLockArgs),
   });
 }
 
