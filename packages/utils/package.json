@@ -1,0 +1,39 @@
+{
+  "name": "@godwoken-js-sdk/utils",
+  "version": "0.0.1",
+  "description": "Utils for godwoken js sdk",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "http://registry.npmjs.org/"
+  },
+  "scripts": {
+    "fmt": "prettier --write \"{src,tests,examples}/**/*.ts\" package.json",
+    "lint": "eslint -c ../../.eslintrc.js \"{src,tests,examples}/**/*.ts\"",
+    "test": "ava **/*.test.ts",
+    "build": "tsc",
+    "clean": "rm -rf lib",
+    "prepublishOnly": "yarn run clean && yarn run build",
+    "release": "npm publish"
+  },
+  "ava": {
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ]
+  },
+  "dependencies": {
+    "@ckb-lumos/base": "^0.18.0-rc1",
+    "@ckb-lumos/helpers": "^0.18.0-rc1",
+    "@godwoken-js-sdk/base": "0.0.1",
+    "ckb-js-toolkit": "^0.10.2"
+  }
+}
