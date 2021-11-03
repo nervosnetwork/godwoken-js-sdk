@@ -32,7 +32,6 @@
   },
   "dependencies": {
     "@ckb-lumos/base": "^0.18.0-rc1",
-    "@ckb-lumos/helpers": "^0.18.0-rc1",
     "@godwoken-js-sdk/base": "0.0.1",
     "@godwoken-js-sdk/rpc": "0.0.1",
     "ckb-js-toolkit": "^0.10.2",
