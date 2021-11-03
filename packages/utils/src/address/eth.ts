@@ -1,20 +1,25 @@
-import { Hash, HexString, Script, utils } from "@ckb-lumos/base";
+import { HexString, Script, utils } from "@ckb-lumos/base";
+import { getConfig, Config } from "@godwoken-js-sdk/config-manager";
 import { RPC } from "@godwoken-js-sdk/rpc";
 
 export function ethEoaAddressToGodwokenScriptHash160(
   ethAddress: HexString,
-  rollupTypeHash: Hash,
-  ethAccountLockCodeHash: Hash,
-  ethAccountLockHashType: "data" | "type" = "type"
+  {
+    config,
+  }: {
+    config: Config;
+  } = {
+    config: getConfig(),
+  }
 ): HexString {
   if (ethAddress.length !== 42 || !ethAddress.startsWith("0x")) {
     throw new Error("eth address format error!");
   }
 
   const layer2Lock: Script = {
-    code_hash: ethAccountLockCodeHash,
-    hash_type: ethAccountLockHashType,
-    args: rollupTypeHash + ethAddress.slice(2).toLowerCase(),
+    code_hash: config.polyjuice.ethAccountLockCodeHash,
+    hash_type: "type",
+    args: config.rollupTypeHash + ethAddress.slice(2).toLowerCase(),
   };
   const scriptHash = utils.computeScriptHash(layer2Lock);
   const scriptHash160 = scriptHash.slice(0, 42);
