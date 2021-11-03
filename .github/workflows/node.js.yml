@@ -30,4 +30,4 @@ jobs:
     - run: yarn run fmt
     - run: yarn run lint
     - run: git diff --exit-code
-    - run: yarn run test --verbose
+    - run: yarn run test
