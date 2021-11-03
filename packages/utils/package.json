@@ -16,7 +16,7 @@
   "scripts": {
     "fmt": "prettier --write \"{src,tests,examples}/**/*.ts\" package.json",
     "lint": "eslint -c ../../.eslintrc.js \"{src,tests,examples}/**/*.ts\"",
-    "test": "ava **/*.test.ts",
+    "test": "ava tests/*.test.ts tests/**/*.test.ts",
     "build": "tsc",
     "clean": "rm -rf lib",
     "prepublishOnly": "yarn run clean && yarn run build",
@@ -34,6 +34,7 @@
     "@ckb-lumos/base": "^0.18.0-rc1",
     "@ckb-lumos/helpers": "^0.18.0-rc1",
     "@godwoken-js-sdk/base": "0.0.1",
-    "ckb-js-toolkit": "^0.10.2"
+    "ckb-js-toolkit": "^0.10.2",
+    "ethers": "^5.5.1"
   }
 }
