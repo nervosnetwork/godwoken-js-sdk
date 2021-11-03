@@ -2,6 +2,7 @@ import test from "ava";
 import {
   generateTransactionMessage,
   generateTransferRawTransaction,
+  signMessage,
 } from "../src";
 
 class MockGodwokenClient {
@@ -31,9 +32,11 @@ const info = {
       args: "0x010000004800000010000000280000003800000014000000f4ca2994226b6cba140116a0ff1d8126352bca1100743ba40b000000000000000000000000000000000000000000000000000000",
     },
     signature:
-      "0x6a60d68aef49bd802f33daff6c45aa82bab55471b91a8912e7e35b4be3e315f47af4dd1140ea14702bfb8d4783e6c5e41e45b0be06f3d03d613d93b84e6b89c600",
+      "0xf027377a0f7bb48836d0e4eb6b426531ff12345b79d7ecff9a6a2efa9d34063915756c4adc191f04f95f3c284f986eccbd05815ec040e2cd6faebcc39a0d642f00",
   },
-  txHash: "0x35564cae56c3c85c209c6e53d2cadeba3510e32c1978f39fbd584519db6caffa",
+  txHash: "0xc59d3cf93b35ae3aa76306783f18a1a2b0acce838be780d71b4d6534fba79ff8",
+  privateKey:
+    "0xe79f3207ea4980b7fed79956d5934249ceac4751a4fae01a0f7c4a96884bc4e3",
 };
 
 test("generate transfer raw transaction", async (t) => {
@@ -51,7 +54,7 @@ test("generate transfer raw transaction", async (t) => {
   t.deepEqual(result, info.l2Transaction.raw);
 });
 
-test("generate transaction message", async (t) => {
+test("generate transaction message", (t) => {
   const result = generateTransactionMessage(
     info.l2Transaction.raw,
     info.senderScriptHash,
@@ -60,4 +63,10 @@ test("generate transaction message", async (t) => {
   );
 
   t.is(result, info.message);
+});
+
+test("signMessage", (t) => {
+  const signature = signMessage(info.message, info.privateKey);
+
+  t.is(signature, info.l2Transaction.signature);
 });

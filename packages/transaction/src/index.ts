@@ -9,6 +9,7 @@ import {
 import { RPC } from "@godwoken-js-sdk/rpc";
 import { Reader } from "ckb-js-toolkit";
 import keccak256 from "keccak256";
+import * as secp256k1 from "secp256k1";
 
 const { SerializeRawL2Transaction, SerializeSUDTArgs } = schemas;
 const { NormalizeRawL2Transaction, NormalizeSUDTTransfer } = normalizers;
@@ -79,4 +80,22 @@ export function generateTransactionMessage(
   const prefix = Buffer.from(`\x19Ethereum Signed Message:\n32`);
   const buf = Buffer.concat([prefix, Buffer.from(message.slice(2), "hex")]);
   return `0x${keccak256(buf).toString("hex")}`;
+}
+
+export function signMessage(message: Hash, privateKey: HexString): HexString {
+  const signObject = secp256k1.ecdsaSign(
+    new Uint8Array(new Reader(message).toArrayBuffer()),
+    new Uint8Array(new Reader(privateKey).toArrayBuffer())
+  );
+  const signatureBuffer = new ArrayBuffer(65);
+  const signatureArray = new Uint8Array(signatureBuffer);
+  signatureArray.set(signObject.signature, 0);
+  let v = signObject.recid;
+  if (v >= 27) {
+    v -= 27;
+  }
+  signatureArray.set([v], 64);
+
+  const signature = new Reader(signatureBuffer).serializeJson();
+  return signature;
 }
