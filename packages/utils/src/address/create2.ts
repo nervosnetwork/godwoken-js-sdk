@@ -6,10 +6,10 @@ import { ethers } from "ethers";
 export function create2ContractAddressToGodwokenScriptHash160(
   ethAddress: HexString,
   {
-    config,
+    config = getConfig(),
   }: {
-    config: Config;
-  } = { config: getConfig() }
+    config?: Config;
+  } = {}
 ): HexString {
   if (!ethers.utils.isAddress(ethAddress)) {
     throw new Error("eth address format error!");

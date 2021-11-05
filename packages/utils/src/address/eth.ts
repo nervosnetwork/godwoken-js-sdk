@@ -1,16 +1,17 @@
 import { HexString, Script, utils } from "@ckb-lumos/base";
 import { getConfig, Config } from "@godwoken-js-sdk/config-manager";
 import { RPC } from "@godwoken-js-sdk/rpc";
+import { Reader } from "ckb-js-toolkit";
+import keccak256 from "keccak256";
+import * as secp256k1 from "secp256k1";
 
 export function ethEoaAddressToGodwokenScriptHash160(
   ethAddress: HexString,
   {
-    config,
+    config = getConfig(),
   }: {
-    config: Config;
-  } = {
-    config: getConfig(),
-  }
+    config?: Config;
+  } = {}
 ): HexString {
   if (ethAddress.length !== 42 || !ethAddress.startsWith("0x")) {
     throw new Error("eth address format error!");
@@ -43,5 +44,15 @@ export async function godwokenScriptHash160ToEthEoaAddress(
     throw new Error(`Script not found by script hash 160: ${scriptHash160}`);
   }
   const ethAddress = "0x" + script.args.slice(66);
+  return ethAddress;
+}
+
+export function privateKeyToEthEoaAddress(privateKey: HexString): HexString {
+  const publicKey = secp256k1.publicKeyCreate(
+    new Uint8Array(new Reader(privateKey).toArrayBuffer()),
+    false
+  );
+  const ethAddress =
+    "0x" + keccak256(Buffer.from(publicKey).slice(1)).slice(12).toString("hex");
   return ethAddress;
 }
