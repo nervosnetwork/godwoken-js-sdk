@@ -8,12 +8,10 @@ import * as secp256k1 from "secp256k1";
 export function ethEoaAddressToGodwokenScriptHash160(
   ethAddress: HexString,
   {
-    config,
+    config = getConfig(),
   }: {
-    config: Config;
-  } = {
-    config: getConfig(),
-  }
+    config?: Config;
+  } = {}
 ): HexString {
   if (ethAddress.length !== 42 || !ethAddress.startsWith("0x")) {
     throw new Error("eth address format error!");
