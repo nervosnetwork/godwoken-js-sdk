@@ -1,7 +1,7 @@
 {
-  "name": "@godwoken-js-sdk/utils",
+  "name": "@godwoken-js-sdk/config-manager",
   "version": "0.0.1",
-  "description": "Utils for godwoken js sdk",
+  "description": "Config manager for godwoken js sdk",
   "license": "MIT",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -14,9 +14,9 @@
     "registry": "http://registry.npmjs.org/"
   },
   "scripts": {
-    "fmt": "prettier --write \"{src,tests,examples}/**/*.ts\" package.json",
-    "lint": "eslint -c ../../.eslintrc.js \"{src,tests,examples}/**/*.ts\"",
-    "test": "ava tests/*.test.ts tests/**/*.test.ts",
+    "fmt": "prettier --write \"{src,tests}/**/*.ts\" package.json",
+    "lint": "eslint -c ../../.eslintrc.js \"{src,tests}/**/*.ts\"",
+    "test": "echo 'no test now'",
     "build": "tsc",
     "clean": "rm -rf lib",
     "prepublishOnly": "yarn run clean && yarn run build",
@@ -31,11 +31,6 @@
     ]
   },
   "dependencies": {
-    "@ckb-lumos/base": "^0.18.0-rc1",
-    "@ckb-lumos/helpers": "^0.18.0-rc1",
-    "@godwoken-js-sdk/base": "0.0.1",
-    "@godwoken-js-sdk/config-manager": "0.0.1",
-    "ckb-js-toolkit": "^0.10.2",
-    "ethers": "^5.5.1"
+    "@ckb-lumos/base": "^0.18.0-rc1"
   }
 }
