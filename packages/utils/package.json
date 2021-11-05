@@ -36,6 +36,11 @@
     "@godwoken-js-sdk/base": "0.0.1",
     "@godwoken-js-sdk/config-manager": "0.0.1",
     "ckb-js-toolkit": "^0.10.2",
-    "ethers": "^5.5.1"
+    "ethers": "^5.5.1",
+    "keccak256": "^1.0.3",
+    "secp256k1": "^4.0.2"
+  },
+  "devDependencies": {
+    "@types/secp256k1": "^4.0.3"
   }
 }
